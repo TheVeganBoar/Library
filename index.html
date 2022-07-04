@@ -6,16 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="" id="dark-css" />
     <script defer src="script.js"></script>
+    
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="left-header">
-                <div class="header-logo"></div> <div class="my-library">My Library</div>
+                <div class="header-logo"></div>
+                <div class="my-library">My Library</div>
             </div>
             <div class="right-header">
-
+                <div class="library-log">
+                    <h2>Library log</h2>
+                    <div class="total-books">
+                        <h3>Total books count :</h3>
+                        <span id="books-count"></span>
+                    </div>
+                    <div class="total-read">
+                        <h3>Read:</h3>
+                        <span id="read-count"></span>
+                    </div>
+                    <div class="not-read">
+                        <h3>Not read:</h3>
+                        <span id="not-read-count"></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="library"></div>
@@ -23,8 +40,8 @@
             <button type="submit" id="add-book-button"> + </button>
         </div>
     </div>
-    <div class="form">
-        <form id="formElement" style="display: none;">
+    <div id="form">
+        <form id="formElement">
                 <label for="title">Title:</label>
                 <input id="title" type="text" name="title">
                 
