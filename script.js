@@ -1,5 +1,6 @@
-// Empty Library Array
-let myLibrary = [];
+let myLibrary = []; // Empty Library Array
+
+const formElement = document.querySelector('#formElement');
 
 // Object Constructor
 function Book (title, author, pages, read) {
@@ -7,21 +8,25 @@ function Book (title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    //this.info = function() {
-    //    return (title + ' by ' + author + ', ' + pages + ' pages, ' + read + '.');
-    //}
 }
 
 // Function to add new books to library array
 function addBookToLibrary() {
     let book = new Book (title, author, pages, read)
     myLibrary.push(book)
+    addBooksToDisplay();
 }
 
 
 // Function to add books to display
 function addBooksToDisplay() {
     const library = document.querySelector('.library');
+
+    //Removing cards each time they get loaded -loop over array again- due to new book added
+    const removeDivs = document.querySelectorAll('.card');
+    for (let i=0; i<removeDivs.length; i++) {
+        removeDivs(i).remove()
+    }
 
     //Function that loops through the array and displays each book on the page
     myLibrary.forEach(book => {
@@ -41,6 +46,33 @@ function addBooksToDisplay() {
     })
 }
 
+// To display form when clicking "Add" button
+const addBookButton = document.querySelector('#add-book-button');
+addBookButton.addEventListener('click', displayTheForm());
 
-//const LOTR = new Book ('The Lord of The Rings', 'J.R.R. Tolkien', '800', 'read');
-//console.log(LOTR.info());
+function displayTheForm(){
+    formElement.style.display = 'inline';
+}
+
+// Transform input information into variables for Obj Constructor
+function applyInput {
+    let title = document.getElementById(title).value;
+
+}
+
+
+// To create card once form is completed
+const create = document.querySelector('#create');
+create.addEventListener('click', createBookCard());
+
+function createBookCard(event) {
+    addBookToLibrary();
+    addBooksToDisplay();
+
+    event.preventDefault();
+}
+
+
+
+
+addBooksToDisplay();
