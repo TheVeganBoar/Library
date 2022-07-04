@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 1px solid red;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    height: 100vh;
+}
+
+.header {
+    grid-row: 1 / 2;
+}
+
+.library {
+    grid-row: 2 / 3;
+}
+
+.add {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+}
+
+#add-book-button {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(24, 77, 104, 0.8);
+}
+
+
+#formElement {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto; 
+    margin-right: auto;
+    top: 70px;
+    height: 500px; 
+    width: 500px;
+}
