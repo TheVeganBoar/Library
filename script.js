@@ -1,78 +1,149 @@
-let myLibrary = []; // Empty Library Array
+const libraryDiv = document.querySelector(".library");
 
-const formElement = document.querySelector('#formElement');
+let myLibrary = [];
 
-// Object Constructor
-function Book (title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+function Book(title, author, pages, read) {  //Book constructor
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
 }
 
-// Function to add new books to library array
-function addBookToLibrary() {
-    let book = new Book (title, author, pages, read)
-    myLibrary.push(book)
-    addBooksToDisplay();
+function createBook(title, author, pages, read) {
+  let book = new Book(title, author, pages, read); //Creates new book from constructor
+  myLibrary.push(book); //Pushes book object to array
+  updateLibrary();
 }
 
+function updateLibrary() {
+  resetLibrary();
+  createNewElements();
+}
 
-// Function to add books to display
-function addBooksToDisplay() {
-    const library = document.querySelector('.library');
+function resetLibrary() {
+  libraryDiv.innerHTML = ""; // resets the library div
+}
 
-    //Removing cards each time they get loaded -loop over array again- due to new book added
-    const removeDivs = document.querySelectorAll('.card');
-    for (let i=0; i<removeDivs.length; i++) {
-        removeDivs(i).remove()
+function removeBook(index) {
+  myLibrary.splice(index, 1);
+  updateLibrary();
+}
+
+function createNewElements() {
+  for (let book in myLibrary) {
+    const bookElement = document.createElement("div");
+    const titleElement = document.createElement("p");
+    const authorElement = document.createElement("p");
+    const pagesElement = document.createElement("p");
+    const readElement = document.createElement("button");
+    const removeElement = document.createElement("button");
+
+    bookElement.classList.add("book");
+
+    titleElement.classList.add("bookTitle");
+    authorElement.classList.add("author");
+    pagesElement.classList.add("pages");
+    readElement.classList.add("bookButton");
+    removeElement.classList.add("bookButton", "remove");
+
+    titleElement.textContent = `"${myLibrary[book].title}"`;
+    authorElement.textContent = `By ${myLibrary[book].author}`;
+    pagesElement.textContent = `${myLibrary[book].pages} pages`;
+
+    removeElement.textContent = "Remove";
+
+    if (myLibrary[book].read) {
+      readElement.textContent = "Read";
+      readElement.classList.add("read");
+    } else {
+      readElement.textContent = "Not read";
+      readElement.classList.add("notread");
     }
 
-    //Function that loops through the array and displays each book on the page
-    myLibrary.forEach(book => {
-        const card = document.createElement('div')
-        card.classList.add('card') 
-        library.appendChild(card)
+    bookElement.dataset.index = book;
+    bookElement.appendChild(titleElement);
+    bookElement.appendChild(authorElement);
+    bookElement.appendChild(pagesElement);
+    bookElement.appendChild(readElement);
+    bookElement.appendChild(removeElement);
 
-        //card.style.height = '100px'
-        //card.style.width = '100px'
-        //card.style.backgroundColor = 'gray'
-
-        for (let key in book) {
-            const paragraph = document.createElement('p');
-            paragraph.textContent = (`${key}: ${book[key]}`)
-            card.appendChild(paragraph)
-        }
-    })
+    libraryDiv.appendChild(bookElement);
+  }
 }
 
-// To display form when clicking "Add" button
-const addBookButton = document.querySelector('#add-book-button');
-addBookButton.addEventListener('click', displayTheForm());
+function readBook(index, e) {
+  myLibrary[index].read
+    ? (myLibrary[index].read = false)
+    : (myLibrary[index].read = true);
 
-function displayTheForm(){
-    formElement.style.display = 'inline';
+  e.classList.toggle("read");
+  e.classList.toggle("notread");
+  updateLibrary();
 }
 
-// Transform input information into variables for Obj Constructor
-function applyInput {
-    let title = document.getElementById(title).value;
-
+function findButton(e) {
+    if (e.target.tagName !== "BUTTON") return;
+    let classes = e.target.classList;
+    let parent = e.target.parentNode;
+    let element = e.target;
+  
+    if (classes.contains("headerButtons")) {
+      if (classes.contains("addBook")) {
+        // TODO: open a modal
+      }
+    }
+    if (classes.contains("bookButton")) {
+      let index = parent.getAttribute("data-index");
+      
+      if (classes.contains("read") || classes.contains("notread")) {
+        readBook(index, element);
+      } else if (classes.contains("remove")) {
+        removeBook(index);
+      }
+    }
 }
 
 
-// To create card once form is completed
-const create = document.querySelector('#create');
-create.addEventListener('click', createBookCard());
+// Modal Code
 
-function createBookCard(event) {
-    addBookToLibrary();
-    addBooksToDisplay();
+let modal = document.querySelector(".modal");
+let modalbutton = document.getElementById("addBook");
+let cancelButton = document.getElementById("cancelModal");
+let addButton = document.getElementById("addModalButton");
 
-    event.preventDefault();
+let titleInput = document.getElementById("titleInput");
+let authorInput = document.getElementById("authorInput");
+let pagesInput = document.getElementById("pagesInput");
+let readBox = document.getElementById("readInput");
+let addBookForm = document.getElementById("modalForm");
+
+modalbutton.onclick = function () {
+  modal.style.display = "flex";
+};
+
+cancelButton.onclick = function () {
+  modal.style.display = "none";
+};
+
+function addModalBook() {
+  let title = titleInput.value;
+  let author = authorInput.value;
+  let pages = pagesInput.value;
+  let read = readBox.checked;
+  createBook(title, author, pages, read);
+  modal.style.display = "none";
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readBox.checked = false;
 }
 
+addBookForm.submit = addModalBook;
 
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
 
-
-addBooksToDisplay();
+document.addEventListener("click", findButton);
