@@ -13,63 +13,44 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="left-header">
-                <div class="header-logo"></div>
-                <div class="my-library">My Library</div>
-            </div>
-            <div class="right-header">
-                <div class="library-log">
-                    <h2>Library log</h2>
-                    <div class="total-books">
-                        <h3>Total books count :</h3>
-                        <span id="books-count"></span>
-                    </div>
-                    <div class="total-read">
-                        <h3>Read:</h3>
-                        <span id="read-count"></span>
-                    </div>
-                    <div class="not-read">
-                        <h3>Not read:</h3>
-                        <span id="not-read-count"></span>
-                    </div>
-                </div>
-            </div>
+            <h1 id="headerTitle">Library</h1>
+            <button id="addBook" class="headerButtons addBook">ADD BOOK</button>
         </div>
-        <div class="library"></div>
-        <div class="add">
-            <button type="submit" id="add-book-button"> + </button>
+        <div class="library">
+            <!-- <div class="book" data-index="0">
+                <p class="bookTitle">"Cool Book"</p>
+                <p class="author">Amazing Author</p>
+                <p class="pages">200 pages</p>
+                <button class="bookButton read">Read</button>
+                <button class="bookButton remove">Remove</button>
+            </div> -->
+        </div>
+        <div class="footer">
+            <p class="footerText">Created by <a href="https://github.com/TheVeganBoar">The Vegan Boar</a></p>
+            <p class="footerText"> - <a href="https://theodinproject.com">The Odin Project</a> - </p>
         </div>
     </div>
-    <div id="form">
-        <form id="formElement">
-                <div class="form-title">Add New Book</div>
-                <div class="form-items">
-                    <label for="title">Title*</label>
-                    <input id="title" type="text" name="title" placeholder="Title">
-
-                    <label for="author">Author*</label>
-                    <input id="author" type="text" name="author" placeholder="Author">
-
-                    <label for="pages">Number of Pages*</label>
-                    <input id="pages" type="number" name="pages" placeholder="Number of pages">
-
-                    <div class="radio-buttons">
-                        <div class="">
-                        <input type="radio" id="read" name="read">
-                        <label for="read">Read</label>
-                        </div>
-                        <div>
-                        <input type="radio" id="not-read" name="read">
-                        <label for="not-read">Not read</label>
-                        </div>
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modalheader">
+                <p>BOOK CARD</p>
+            </div>
+            <div class="form">
+                <form onsubmit="addModalBook(); return false;" id="modalForm">
+                    <input type="text" name="title" id="titleInput" placeholder="Title" required>
+                    <input type="text" name="author" id="authorInput" placeholder="Author" required>
+                    <input type="number" name="pages" id="pagesInput" placeholder="Pages" min="1" required>
+                    <div class="readInputDiv">
+                        <input type="checkbox" name="read" id="readInput">
+                        <label for="readInput">Read</label>
                     </div>
-
-                    <div class="submit-reset">
-                        <button type="submit" id="create">Create Card</button>
-                        <button type="reset" id="reset">Clear Fields</button>
-                    </div>
-                </div>
-        </form>
+                </form>
+            </div>
+            <div class="modalbuttons">
+                <button id="cancelModal" class="modalbutton cancel">CANCEL</button>
+                <button type="submit" form="modalForm" id="addModalButton" class="modalbutton add">ADD</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
