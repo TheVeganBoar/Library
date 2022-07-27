@@ -2,12 +2,21 @@ const libraryDiv = document.querySelector(".library");
 
 let myLibrary = [];
 
-function Book(title, author, pages, read) {  //Book constructor
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
+//function Book(title, author, pages, read) {  //Book constructor
+//  this.title = title;
+//  this.author = author;
+//  this.pages = pages;
+//  this.read = read;
+//}
+
+class Book {
+    constructor(title, author, pages, read) { //title = "Unknown", author = "Unknown", pages = 0, read = false
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
+      this.read = read;
+    }
+  }
 
 function createBook(title, author, pages, read) {
   let book = new Book(title, author, pages, read); //Creates new book from constructor
@@ -87,11 +96,6 @@ function findButton(e) {
     let parent = e.target.parentNode;
     let element = e.target;
   
-    if (classes.contains("headerButtons")) {
-      if (classes.contains("addBook")) {
-        // TODO: open a modal
-      }
-    }
     if (classes.contains("bookButton")) {
       let index = parent.getAttribute("data-index");
       
