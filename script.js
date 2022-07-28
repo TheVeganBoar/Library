@@ -30,7 +30,7 @@ function updateLibrary() {
 }
 
 function resetLibrary() {
-  libraryDiv.innerHTML = ""; // resets the library div
+    libraryDiv.innerHTML = ""; // resets the library div
 }
 
 function removeBook(index) {
@@ -121,11 +121,11 @@ let pagesInput = document.getElementById("pagesInput");
 let readBox = document.getElementById("readInput");
 let addBookForm = document.getElementById("modalForm");
 
-modalbutton.onclick = function () {
+modalbutton.onclick = () => {
   modal.style.display = "flex";
 };
 
-cancelButton.onclick = function () {
+cancelButton.onclick = () => {
   modal.style.display = "none";
 };
 
